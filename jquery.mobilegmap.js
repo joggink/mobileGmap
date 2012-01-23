@@ -1,5 +1,5 @@
 /**
- * jQuery Mobile Select
+ * jQuery Mobile Google maps
  * @Author: Jochen Vandendriessche <jochen@builtbyrobot.com>
  * @Author URI: http://builtbyrobot.com
  *
