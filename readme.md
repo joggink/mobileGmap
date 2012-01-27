@@ -8,6 +8,8 @@ Well, when scrolling a website on your mobile device you can get trapped in a go
 due to the Maps scrollbar of death™. This plugin gives you a native google maps on your 
 website and a safe fallback to the static image API of google maps for smaller devices.
 
+More info can be found here: http://joggink.com/2012/01/responsive-google-maps/
+
 How to use?
 -----------
 
