@@ -40,13 +40,13 @@ $(document).ready(function(){
 ```
 If you want to pass the address, zoom level and the maptype you can use HTML5 data-attributes
 ``` html
-<div class="gmap" id="map" data-center="Brugse Heirweg 37 Aartrijke Belgium" data-zoom="15">
-  <address>
-    <strong>builtbyrobot</strong><br />
-    Brugse Heirweg 37<br />
+&lt;div class="gmap" id="map" data-center="Brugse Heirweg 37 Aartrijke Belgium" data-zoom="15"&gt;
+  &lt;address&gt;
+    &lt;strong&gt;builtbyrobot&lt;/strong&gt;&lt;br /&gt;
+    Brugse Heirweg 37&lt;br /&gt;
     8211 Aartrijke
-  </address>
-</div>
+  &lt;/address&gt;
+&lt;/div&gt;
 ```
 And that's it that's all.
 
