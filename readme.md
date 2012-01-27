@@ -39,6 +39,7 @@ $(document).ready(function(){
 })
 ```
 If you want to pass the address, zoom level and the maptype you can use HTML5 data-attributes
+
 ``` html
   <div class="gmap" id="map" data-center="Brugse Heirweg 37 Aartrijke Belgium" data-zoom="15">
     <address>
@@ -47,7 +48,6 @@ If you want to pass the address, zoom level and the maptype you can use HTML5 da
       8211 Aartrijke
     </address>
   </div>
-
 ```
 And that's it that's all.
 
