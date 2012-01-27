@@ -32,21 +32,22 @@ You can optionally change these default parameters:
 $(document).ready(function(){
 
   // your navigation ul selector
-  $('#nav-main ul').mobileSelect({
+  $('.gmap').mobileGmap({
     deviceWidth: 480, // The select will be added for screensizes smaller than this
   });
 
 })
 ```
 If you want to pass the address, zoom level and the maptype you can use HTML5 data-attributes
-``` html
-&lt;div class="gmap" id="map" data-center="Brugse Heirweg 37 Aartrijke Belgium" data-zoom="15"&gt;
-  &lt;address&gt;
-    &lt;strong&gt;builtbyrobot&lt;/strong&gt;&lt;br /&gt;
-    Brugse Heirweg 37&lt;br /&gt;
+``` 
+<div class="gmap" id="map" data-center="Brugse Heirweg 37 Aartrijke Belgium" data-zoom="15">
+  <address>
+    <strong>builtbyrobot</strong><br />
+    Brugse Heirweg 37<br />
     8211 Aartrijke
-  &lt;/address&gt;
-&lt;/div&gt;
+  </address>
+</div>
+
 ```
 And that's it that's all.
 
