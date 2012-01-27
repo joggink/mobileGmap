@@ -24,13 +24,24 @@
 			// iframe?
 			//<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.be/maps?f=q&amp;source=s_q&amp;hl=nl&amp;geocode=&amp;q=Brugse+Heirweg+37,+aartrijke&amp;aq=&amp;sll=51.122175,3.086483&amp;sspn=0.009253,0.021651&amp;vpsrc=0&amp;ie=UTF8&amp;hq=&amp;hnear=Brugse+Heirweg+37,+8211+Zedelgem,+West-Vlaanderen,+Vlaams+Gewest&amp;t=m&amp;z=14&amp;ll=51.122175,3.086483&amp;output=embed"></iframe>
 			options.imgURI = 'http://maps.googleapis.com/maps/api/staticmap?';
-			settings.center = 'Brugse+Heirweg+37+Aartrijke,Belgium';
-			settings.zoom = '12';
+			settings.center = 'Brussels Belgium';
+			settings.zoom = '5';
 			settings.size = screen.width + 'x' +  480;
 			settings.scale = window.devicePixelRatio ? window.devicePixelRatio : 1;
 			settings.maptype = 'roadmap';
 			settings.sensor = false;
 			options.settings = settings;
+
+			if ($(this).attr('data-center')){
+				options.settings.center = $(this).attr('data-center').replace(/ /gi, '+');
+			}
+			if ($(this).attr('data-zoom')){
+				options.settings.zoom = parseInt($(this).attr('data-zoom'));
+			}
+			if ($(this).attr('data-maptype')){
+				options.settings.zoom = $(this).attr('data-maptype');
+			}
+			
 			// if there should be more markers _with_ text an ul.markers element should be used so
 			// we can store all markers :-) (marker specific settings will be added later)
 			if (options.showMarker){
@@ -56,7 +67,7 @@
 					latlng = new google.maps.LatLng(-34.397, 150.644),
 					mapOptions = {},
 					htmlObj = $(this).get(0);
-					geocoder.geocode( { 'address': options.settings.center.replace(/\+/g, ' ')}, function(results, status) {
+					geocoder.geocode( { 'address': options.settings.center.replace(/\+/gi, ' ')}, function(results, status) {
 					      if (status == google.maps.GeocoderStatus.OK) {
 					        // map.setCenter(results[0].geometry.location);
 					        mapOptions = {
@@ -71,18 +82,12 @@
 									        });
 					      }
 					    });
-				// mapOptions = {
-				// 	zoom: parseInt(options.settings.zoom),
-				// 	center: latlng,
-				// 	mapTypeId: options.settings.maptype
-				// }
-				// new google.maps.Map($(this).get(0), mapOptions);
-			
 		},
 		
 		showImage : function(){
 			var par = [],
 					r = new Image(),
+					l = document.createElement('a'),
 					options = $(this).data('options'),
 					i = 0,
 					m = [];
@@ -104,7 +109,9 @@
 				}
 			}
 			r.src =  options.imgURI + par.join('&') + m.join('');
-			$(this).empty().append(r);
+			l.href = 'http://maps.google.com/maps?q=' + options.settings.center;
+			l.appendChild(r);
+			$(this).empty().append(l);
 		}
 		
 	};
