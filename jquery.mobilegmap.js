@@ -71,7 +71,7 @@
 					      if (status == google.maps.GeocoderStatus.OK) {
 					        // map.setCenter(results[0].geometry.location);
 					        mapOptions = {
-										zoom: parseInt(options.settings.zoom),
+										zoom: parseInt(options.settings.zoom, 10),
 										center: results[0].geometry.location,
 										mapTypeId: options.settings.maptype
 									}
