@@ -1,12 +1,15 @@
 /**
  * jQuery Mobile Google maps
- * @Author: Jochen Vandendriessche <jochen@builtbyrobot.com>
- * @Author URI: http://builtbyrobot.com
+ * @Author: Gerrit Bertier <gerrit.bertier@gmail.com>
+ * @Author URI: http://desaturated.be
  *
  * @TODO:
  * - fix https image requests
+ * - support for multiple markers
+ * - code clean-up/refactoring
+ * - make it optional to show / hide the address marker
+ * - add multiple markers with balloons containing more info / fallback with numbers or letters for the mobile version
 **/
-
 (function($){
 	"use strict";
 
@@ -41,21 +44,37 @@
 			if ($(this).attr('data-maptype')){
 				options.settings.zoom = $(this).attr('data-maptype');
 			}
+			if ($(this).attr('data-markericon')){
+				options.settings.markericon = $(this).attr('data-markericon');
+			}
+			if ($(this).attr('data-markertitle')){
+				options.settings.markertitle = $(this).attr('data-markertitle');
+			}
 			
 			// if there should be more markers _with_ text an ul.markers element should be used so
 			// we can store all markers :-) (marker specific settings will be added later)
-			if (options.showMarker){
-				markers.push({
-					label: 'A',
-					position: settings.center
-				});
+			if (options.showMarker)
+			{
+				var marker = {label: 'A', position: settings.center};
+				if ('markericon' in options.settings)
+				{
+					marker.markericon = options.settings.markericon;
+				}
+				if ('markertitle' in options.settings)
+				{
+					marker.markertitle = options.settings.markertitle;
+				}
+				markers.push(marker);
 			}
 			options.markers = markers;
 			$(this).data('options', options);
 			
-			if (screen.width < options.deviceWidth){
+			if (screen.width < options.deviceWidth)
+			{
 				$(this).mobileGmap('showImage');
-			}else{
+			}
+			else
+			{
 				$(this).mobileGmap('showMap');
 			}
 			
@@ -63,34 +82,42 @@
 		
 		showMap : function(){
 			var options = $(this).data('options'),
-					geocoder = new google.maps.Geocoder(),
-					latlng = new google.maps.LatLng(-34.397, 150.644),
-					mapOptions = {},
-					htmlObj = $(this).get(0);
-					geocoder.geocode( { 'address': options.settings.center.replace(/\+/gi, ' ')}, function(results, status) {
-					      if (status == google.maps.GeocoderStatus.OK) {
-					        // map.setCenter(results[0].geometry.location);
-					        mapOptions = {
-										zoom: parseInt(options.settings.zoom, 10),
-										center: results[0].geometry.location,
-										mapTypeId: options.settings.maptype
-									}
-									var map = new google.maps.Map(htmlObj, mapOptions);
-									var marker = new google.maps.Marker({
-									            map: map,
-									            position: results[0].geometry.location
-									        });
-					      }
-					    });
+			geocoder = new google.maps.Geocoder(),
+			latlng = new google.maps.LatLng(-34.397, 150.644),
+			mapOptions = {},
+			htmlObj = $(this).get(0);
+			geocoder.geocode({'address': options.settings.center.replace(/\+/gi, ' ')}, function(results, status)
+			{
+				if (status == google.maps.GeocoderStatus.OK)
+				{
+					mapOptions =
+					{
+						zoom: parseInt(options.settings.zoom, 10),
+						center: results[0].geometry.location,
+						mapTypeId: options.settings.maptype
+					}
+					var map = new google.maps.Map(htmlObj, mapOptions);
+					
+					var markerOptions =
+					{
+						map: map,
+						position: results[0].geometry.location							
+					};
+					if ('markericon' in options.settings) markerOptions.icon = options.settings.markericon;
+					if ('markertitle' in options.settings) markerOptions.title = options.settings.markertitle;
+					var marker = new google.maps.Marker(markerOptions);
+				}
+			});
 		},
 		
 		showImage : function(){
+			console.log("papara");
 			var par = [],
-					r = new Image(),
-					l = document.createElement('a'),
-					options = $(this).data('options'),
-					i = 0,
-					m = [];
+				r = new Image(),
+				l = document.createElement('a'),
+				options = $(this).data('options'),
+				i = 0,
+				m = [];
 			for (var o in options.settings){
 				par.push(o + '=' + options.settings[o]);
 			}
@@ -118,11 +145,11 @@
 
 	$.fn.mobileGmap = function(method){
 		if ( methods[method] ) {
-					return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-				} else if ( typeof method === 'object' || ! method ) {
-					return methods.init.apply( this, arguments );
-				} else {
-					$.error( 'Method ' + method + ' does not exist on jQuery.mobileGmap' );
+			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+		} else if ( typeof method === 'object' || ! method ) {
+			return methods.init.apply( this, arguments );
+		} else {
+			$.error( 'Method ' + method + ' does not exist on jQuery.mobileGmap' );
 		}
 	};
 })(this.jQuery);
