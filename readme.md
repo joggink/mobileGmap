@@ -33,7 +33,7 @@ $(document).ready(function(){
 
   // your google map container
   $('.gmap').mobileGmap({
-    deviceWidth: 480, // The select will be added for screensizes smaller than this
+    deviceWidth: 480 // The select will be added for screensizes smaller than this
   });
 
 })
