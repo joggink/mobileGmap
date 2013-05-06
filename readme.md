@@ -10,6 +10,8 @@ website and a safe fallback to the static image API of google maps for smaller d
 
 More info can be found here: http://joggink.com/2012/01/responsive-google-maps/
 
+I took the plugin from Joggink (https://github.com/joggink/mobileGmap) and added some extra options.
+
 How to use?
 -----------
 
@@ -56,5 +58,7 @@ However...
 
 There are still some things that need to be taken care of:
 
+*  support for multiple markers
+*  code clean-up/refactoring
 *  make it optional to show / hide the address marker
 *  add multiple markers with balloons containing more info / fallback with numbers or letters for the mobile version
