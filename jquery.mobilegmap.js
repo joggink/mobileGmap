@@ -36,7 +36,7 @@
 			settings = {
 				center: '',
 				zoom: '5',
-				size: screen.width + 'x' +  480,
+				size: $(window).width() + 'x' +  480,
 				scale: window.devicePixelRatio ? window.devicePixelRatio : 1,
 				maptype: 'roadmap',
 				sensor: false
@@ -55,7 +55,7 @@
 
 			$this.data('options', options);
 
-			if (screen.width < options.deviceWidth){
+			if ($(window).width() < options.deviceWidth){
 				$this.mobileGmap('showImage');
 			}else{
 				$this.mobileGmap('showMap');
