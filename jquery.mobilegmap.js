@@ -28,6 +28,13 @@
 		init : function(config) {
 			//Enable new design which is currently opt-in
 			google.maps.visualRefresh = true;
+			var $this = $(this); // store the jquery object once
+			// We should use the container size if it is set.
+			// To use images greater than 640x640 you need a business API key.
+			// https://developers.google.com/maps/documentation/staticmaps/?csw=1#Imagesizes
+			// https://developers.google.com/maps/documentation/business/clientside/#MapsJS
+			var _w = $this.width() ? $this.width() : $(window).width();
+			var _h = $this.height() ? $this.height() : _w;	// square
 
 			var options = $.extend({
 				deviceWidth: 580,
@@ -36,14 +43,13 @@
 			settings = {
 				center: '',
 				zoom: '5',
-				size: screen.width + 'x' +  480,
+				size: _w + 'x' + _h,
 				scale: window.devicePixelRatio ? window.devicePixelRatio : 1,
 				maptype: 'roadmap',
 				sensor: false
 			};
 			// we'll use the width of the device, because we stopped browsersniffing
 			// a long time ago. Anyway, we want to target _every_ small display
-			var $this = $(this); // store the jquery object once
 			// iframe?
 			//<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=nl&amp;geocode=&amp;q=Brugse+Heirweg+37,+aartrijke&amp;aq=&amp;sll=51.122175,3.086483&amp;sspn=0.009253,0.021651&amp;vpsrc=0&amp;ie=UTF8&amp;hq=&amp;hnear=Brugse+Heirweg+37,+8211+Zedelgem,+West-Vlaanderen,+Vlaams+Gewest&amp;t=m&amp;z=14&amp;ll=51.122175,3.086483&amp;output=embed"></iframe>
 			options.imgURI = 'http://maps.googleapis.com/maps/api/staticmap?';
